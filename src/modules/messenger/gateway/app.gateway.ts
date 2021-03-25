@@ -10,7 +10,7 @@ import {
    import { Socket, Server } from 'socket.io';
 
 
-   @WebSocketGateway(81)
+   @WebSocketGateway(1025)
    export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     constructor() {
         
@@ -35,11 +35,11 @@ import {
     }
 
     @SubscribeMessage('message')
-    handleEvent(@MessageBody() data: any): void {
-
-        this.server.emit('conversation', data.message)
-
-        }
+    handleMessage(client: Socket, payload: string): void {
+        console.log(payload)
+        this.server.emit('conversation', payload);
+       }
+      
 
 
     // @SubscribeMessage('stop')
